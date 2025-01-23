@@ -7,8 +7,11 @@ export default {
   ],
   theme: {
     extend: {
+      height:{
+        '128': '35rem'
+      },
       colors: {
-        background: "var(--background)",
+        background: "#FFDB00",
         foreground: "var(--foreground)",
       },
     },
