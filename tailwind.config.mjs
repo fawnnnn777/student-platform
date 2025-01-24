@@ -7,6 +7,12 @@ export default {
   ],
   theme: {
     extend: {
+      keyframes:{
+        show:{
+          '0%':{backgroundColor: 'green'},
+          '100%':{backgroundColor: 'blue'}
+        }
+      },
       height:{
         '128': '35rem'
       },
