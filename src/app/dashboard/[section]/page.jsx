@@ -9,14 +9,20 @@ export default function SectionPage() {
         return <div>Loading...</div>;
     }
 
+    const DropdownContent = {
+        fluency: []
+    }
+
     return (
         <div>
-            <h1 className="text-2xl font-bold text-center mb-4">
+            <h1 className="text-3xl font-bold text-center m-4">
                 {section.charAt(0).toUpperCase() + section.slice(1)} Practice
             </h1>
+            <div className='h-128 content-center'>
             <Dropdown level="Basic" />
             <Dropdown level="Intermediate" />
             <Dropdown level="Advanced" />
+            </div>
         </div>
     )
 }
