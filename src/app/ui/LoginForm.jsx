@@ -1,17 +1,16 @@
 'use client'
+
+import { Suspense } from "react";
 import { raleway } from "./fonts";
 import { useActionState } from "react";
 import { authenticate } from "../lib/actions";
 import { useSearchParams } from "next/navigation";
 
-export default function LoginForm() {
+function LoginFormContent() {
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get('callbackUrl') || '/dashboard';
 
-  const searchParams = useSearchParams()
-  const callbackUrl = searchParams.get('callbackUrl') || '/dashboard'
-  const [errorMessage, formAction, isPending] = useActionState(
-    authenticate,
-    undefined
-  )
+  const [errorMessage, formAction, isPending] = useActionState(authenticate, undefined);
 
   return (
     <form action={formAction} className="space-y-3">
@@ -21,10 +20,7 @@ export default function LoginForm() {
         </h1>
         <div className="w-full">
           <div>
-            <label
-              className="mb-3 mt-5 block text-xs font-medium text-gray-900"
-              htmlFor="email"
-            >
+            <label className="mb-3 mt-5 block text-xs font-medium text-gray-900" htmlFor="email">
               Email
             </label>
             <div className="relative">
@@ -39,10 +35,7 @@ export default function LoginForm() {
             </div>
           </div>
           <div className="mt-4">
-            <label
-              className="mb-3 mt-5 block text-xs font-medium text-gray-900"
-              htmlFor="password"
-            >
+            <label className="mb-3 mt-5 block text-xs font-medium text-gray-900" htmlFor="password">
               Password
             </label>
             <div className="relative">
@@ -58,18 +51,22 @@ export default function LoginForm() {
             </div>
           </div>
         </div>
-        <input type="hidden" name="redirectTo" value={callbackUrl}></input>
+        <input type="hidden" name="redirectTo" value={callbackUrl} />
         <button aria-disabled={isPending} className="mt-4 w-full">
           Log in
         </button>
         <div className="flex h-8 items-end space-x-1">
-        {errorMessage && (
-            <>
-              <p className="text-sm text-red-500">{errorMessage}</p>
-            </>
-          )}
+          {errorMessage && <p className="text-sm text-red-500">{errorMessage}</p>}
         </div>
       </div>
     </form>
+  );
+}
+
+export default function LoginForm() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <LoginFormContent />
+    </Suspense>
   );
 }
