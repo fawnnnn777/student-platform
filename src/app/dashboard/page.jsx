@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import {montserrat, raleway} from '../ui/fonts'
+import { signOut } from '../../../auth';
 
 export default function Page(){
     return(
@@ -12,6 +13,16 @@ export default function Page(){
                 <Link href='/dashboard/intonation' className={`${raleway.className} rounded-3xl text-white bg-black p-5 text-3xl m-5 border-2 border-black w-5/6`}>Intonation</Link>
                 <Link href='/dashboard/fluency' className={`${raleway.className} rounded-3xl text-white bg-black p-5 text-3xl m-5 border-2 border-black w-5/6`}>Fluency</Link>
                 <Link href='/dashboard/more' className={`${raleway.className} rounded-3xl text-white bg-black p-5 text-3xl m-5 border-2 border-black w-5/6`}>More</Link>
+                <form
+          action={async () => {
+            'use server';
+            await signOut({ redirectTo: '/ogin' });
+          }}
+        >
+          <button className="flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3">
+            <div className="hidden md:block">Sign Out</div>
+          </button>
+        </form>
             </div>
         </div>
     </>
